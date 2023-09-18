@@ -1,0 +1,74 @@
+
+<div>
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Image</th>
+            <th scope="col">Link mp4</th>
+            <th scope="col">link mp3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><%= @student.name%></td>
+            <td><%=@student.age%></td>
+            <td><%=@student.phone%></td>
+            <td>
+                <% if @student.avatar_url.present? %>
+                <%= image_tag @student.avatar_url, alt: "User Avatar", class: "rounded", style: "width: 4rem; height: 5rem;" %>
+                <% else %>
+                <!-- Hiển thị một hình ảnh mặc định hoặc thông báo khác tùy thuộc vào trường hợp -->
+                <% end %>
+            </td>
+            <td>
+                <% if @student.video_url.present? %>
+                <%= video_tag @student.video_url, alt: "Video", class: "rounded", style: "width: 4rem; height: 5rem;" %>
+                <% else %>
+                <!-- Hiển thị một hình ảnh mặc định hoặc thông báo khác tùy thuộc vào trường hợp -->
+                <% end %>
+            </td>
+            <td>
+                <% if @student.song_url.present? %>
+                <%= audio_tag @student.song_url, controls: true, alt: "Song", class: "rounded", style: "width: 4rem; height: 5rem;" %>
+
+                <% else %>
+                <!-- Hiển thị một hình ảnh mặc định hoặc thông báo khác tùy thuộc vào trường hợp -->
+                <% end %>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Subject</th>
+      <th scope="col">Semester</th>
+      <th scope="col">Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= @student.grades.each_with_index do |f, index| %>
+    <tr>
+      <th scope="row"><%= index + 1 %></th>
+      <td><%= f.subject %></td>
+      <td><%= f.semester %></td>
+      <td><%= f.score %></td>
+    </tr>
+    <% end %>
+    
+    <%# <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr> %>
+   
+  </tbody>
+</table>
+</div>
+

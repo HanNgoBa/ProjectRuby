@@ -1,0 +1,21 @@
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <% if @paginator.current_page > 1 %>
+      <li class="page-item">
+        <%= link_to_unless @paginator.current_page == 1, '<span aria-hidden="true">&laquo;</span>'.html_safe, @paginator.current_page - 1, class: 'page-link' %>
+      </li>
+    <% end %>
+    
+    <% @paginator.each_page do |page| %>
+      <li class="page-item <%= 'active' if page == @paginator.current_page %>">
+        <%= link_to_unless page == @paginator.current_page, page, page, class: 'page-link' %>
+      </li>
+    <% end %>
+    
+    <% if @paginator.current_page < @paginator.total_pages %>
+      <li class="page-item">
+        <%= link_to_unless @paginator.current_page == @paginator.total_pages, '<span aria-hidden="true">&raquo;</span>'.html_safe, @paginator.current_page + 1, class: 'page-link' %>
+      </li>
+    <% end %>
+  </ul>
+</nav>
