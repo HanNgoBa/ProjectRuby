@@ -7,31 +7,18 @@ module Manager
                     @search = params[:search]
                     @subject = params[:subject]
                     query = Student.includes(:grades)
-                    # .joins(:grades)
                     query = query.where('students.name LIKE ?', "%#{@search}%")
                     if @subject.present?
-                      query = query.where('grades.subject = ?', @subject)
+                      query = query.where(grades: {subject: @subject} )
                     end
                     query.page params[:page]
                   else
                     Student.includes(:grades).page params[:page]
                   end
-      
-      # @students = if params[:search]
-      #   @search = params[:search]
-      #   query = Student.joins(:grades).where('students.name LIKE ?', "%#{@search}%")
-      #   if params[:subject]
-      #     @subject = params[:subject]
-      #     query = query.where('grades.subject = ?', @subject)
-      #   end
-      #   query.page params[:page]
-      # else
-      #   Student.all.page params[:page]
-      # end
     end
 
     def show
-      @student = Student.find_by(params[id: params[:id]])
+      @student = Student.find_by(id: params[:id])
     end
 
     def new
@@ -40,6 +27,7 @@ module Manager
     end
 
     def create
+
       @student = Student.new(student_params)
       if @student.save
         redirect_to manager_students_url
@@ -72,11 +60,9 @@ module Manager
     end
 
     def student_restore
-      id = params[:id]
-      @restored_student = Student.restore(id, :recursive => true)
-      raise "I am here"
-      redirect_to manager_student_deleted_path, notice: "Student was restored", method: :PUT
-
+      @student = Student.only_deleted.find(params[:id])
+      @restored_student = @student.restore!(recursive: true)
+      redirect_to manager_student_deleted_path, notice: "Student was restored"
     end
 
     def permanently_delete

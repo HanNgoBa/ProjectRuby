@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_18_063754) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_19_070447) do
   create_table "admins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -30,6 +30,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_18_063754) do
     t.bigint "student_id", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_grades_on_deleted_at"
     t.index ["student_id"], name: "index_grades_on_student_id"
   end
 
@@ -42,7 +44,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_18_063754) do
     t.string "avatar"
     t.string "song"
     t.string "video"
-    t.datetime "delete_dat"
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_students_on_deleted_at"
   end
@@ -55,6 +56,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_18_063754) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

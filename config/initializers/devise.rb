@@ -133,6 +133,7 @@ Devise.setup do |config|
 
   # Send a notification email when the user's password is changed.
   # config.send_password_change_notification = false
+  config.confirm_within = 2.days
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without

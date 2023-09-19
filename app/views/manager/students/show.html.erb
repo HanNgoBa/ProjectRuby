@@ -42,7 +42,7 @@
     </tbody>
     </table>
 
-    <table class="table">
+  <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -52,7 +52,7 @@
     </tr>
   </thead>
   <tbody>
-    <%= @student.grades.each_with_index do |f, index| %>
+    <% @student.grades.each_with_index do |f, index| %>
     <tr>
       <th scope="row"><%= index + 1 %></th>
       <td><%= f.subject %></td>
@@ -60,14 +60,6 @@
       <td><%= f.score %></td>
     </tr>
     <% end %>
-    
-    <%# <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr> %>
-   
   </tbody>
 </table>
 </div>

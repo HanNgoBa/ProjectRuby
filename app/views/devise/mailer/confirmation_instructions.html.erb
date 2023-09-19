@@ -1,5 +1,9 @@
-<p>Welcome <%= @email %>!</p>
+<p>Welcome <%#= @email %>!</p>
 
-<p>You can confirm your account email through the link below:</p>
+<%# <p>You can confirm your account email through the link below:</p> %>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p><%#= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+ <h1>Xác nhận email của bạn</h1>
+ <p>Chào mừng bạn đến với ứng dụng của chúng tôi. Bấm vào liên kết bên dưới để xác nhận địa chỉ email của bạn:</p>
+ <p><%= link_to 'Xác nhận tài khoản', confirmation_url(@resource, confirmation_token: @token) %></p>

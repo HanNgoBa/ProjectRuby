@@ -5,7 +5,6 @@
 #  id         :bigint           not null, primary key
 #  age        :integer
 #  avatar     :string(255)
-#  delete_dat :datetime
 #  deleted_at :datetime
 #  name       :string(255)
 #  phone      :string(255)

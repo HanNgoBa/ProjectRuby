@@ -5,6 +5,7 @@
 # Table name: grades
 #
 #  id         :bigint           not null, primary key
+#  deleted_at :datetime
 #  score      :integer
 #  semester   :string(255)
 #  subject    :string(255)
@@ -14,6 +15,7 @@
 #
 # Indexes
 #
+#  index_grades_on_deleted_at  (deleted_at)
 #  index_grades_on_student_id  (student_id)
 #
 # Foreign Keys
