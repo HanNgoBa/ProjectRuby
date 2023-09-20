@@ -9,6 +9,8 @@
             <th scope="col">Name</th>
             <th scope="col">Age</th>
             <th scope="col">Phone</th>
+            <th scope="col">Action</th>
+            <th scope="col">Move</th>
         </tr>
     </thead>
     <tbody>
@@ -23,9 +25,13 @@
             <%= link_to "Custom", edit_manager_student_path(student), class: "btn btn-secondary" %>
             <%= link_to "Delete", manager_student_path(student), data: {turbo_method: :delete, turbo_confirm: "Bạn chắc chắn muốn xoá?"}, class: "btn btn-danger" %>
         </td>
+        <td>
+            <%= link_to "Move up", move_higher_manager_student_path(student), data: {turbo_method: :put}, class: "move_action" %>
+            <br>
+            <%= link_to "Move down", move_lower_manager_student_path(student), data: {turbo_method: :put}, class: "move_action" %>
+        </td>
         </tr>
         <% end %>
-        
     </tbody>
     </table>
     <%= link_to 'Add Student', new_manager_student_path %>

@@ -10,6 +10,7 @@
 #  deleted_at :datetime
 #  name       :string(255)
 #  phone      :string(255)
+#  position   :integer
 #  song       :string(255)
 #  video      :string(255)
 #  created_at :datetime         not null

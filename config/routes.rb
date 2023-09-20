@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resources :students do
       member do
         put 'student_restore', to: 'students#student_restore'
+        put 'move_higher'
+        put 'move_lower'
       end
     end
     get 'student_deleted', to: 'students#student_deleted'

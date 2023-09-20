@@ -10,6 +10,7 @@
 #  deleted_at :datetime
 #  name       :string(255)
 #  phone      :string(255)
+#  position   :integer
 #  song       :string(255)
 #  video      :string(255)
 #  created_at :datetime         not null
@@ -20,7 +21,10 @@
 #  index_students_on_deleted_at  (deleted_at)
 #
 class Student < ApplicationRecord
+  # include RankedModel
+  # ranks :row_order
   acts_as_paranoid
+
 
   mount_uploader :avatar, AvatarUploader
   mount_uploader :video, MediaUploader

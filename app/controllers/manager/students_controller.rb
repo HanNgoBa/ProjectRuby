@@ -3,18 +3,8 @@
 module Manager
   class StudentsController < ApplicationController
     def index
-      @students = if params[:search]
-                    @search = params[:search]
-                    @subject = params[:subject]
-                    query = Student.includes(:grades)
-                    query = query.where('students.name LIKE ?', "%#{@search}%")
-                    if @subject.present?
-                      query = query.where(grades: {subject: @subject} )
-                    end
-                    query.page params[:page]
-                  else
-                    Student.includes(:grades).page params[:page]
-                  end
+      student_sv = StudentService.new
+      @students = student_sv.get_student(params)
     end
 
     def show
@@ -27,13 +17,21 @@ module Manager
     end
 
     def create
+      @student = Student.new
+      student_sv = StudentService.new(@student)
 
-      @student = Student.new(student_params)
-      if @student.save
+      if student_sv.create_student(student_params)
         redirect_to manager_students_url
       else
         render :new, status: :unprocessable_entity
       end
+
+      # @student = Student.new(student_params)
+      # if @student.save
+      #   redirect_to manager_students_url
+      # else
+      #   render :new, status: :unprocessable_entity
+      # end
     end
 
     def edit
@@ -42,7 +40,9 @@ module Manager
 
     def update
       @student = Student.find(params[:id])
-      if @student.update(student_params)
+      student_sv = StudentService.new(@student)
+
+      if student_sv.update_student(student_params)
         redirect_to manager_students_path
       else
         render :new, status: :unprocessable_entity
@@ -69,6 +69,32 @@ module Manager
       @student = Student.only_deleted.find(params[:id])
       @student.really_destroy!
       redirect_to manager_student_deleted_path, notice: "Student has been permanently deleted"
+    end
+
+    def move_lower
+      @student = Student.find(params[:id])
+      student_posti = Student.where("position > ?", @student.position).order("position ASC").first
+      if student_posti
+        temp_position = student_posti.position
+        student_posti.update_column(:position, @student.position)
+        @student.update_column(:position, temp_position)
+      end
+      redirect_to manager_students_path
+      # @student.move_lower
+      # manager_students_path
+    end
+
+    def move_higher
+      @student = Student.find(params[:id])
+      student_posti = Student.where("position < ?", @student.position).order("position DESC").first
+      if student_posti
+        temp_position = student_posti.position
+        student_posti.update_column(:position, @student.position)
+        @student.update_column(:position, temp_position)
+      end
+      redirect_to manager_students_path
+      # @student.move_higher
+      # manager_students_path
     end
 
     private
