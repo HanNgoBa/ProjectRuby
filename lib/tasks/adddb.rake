@@ -17,4 +17,23 @@ namespace :adddb do
       end
     end
   end
+
+  desc "a"
+  task :add_teacher => :environment do
+    10.times do |i|
+    name = "Teacher #{i*10 + 1}" 
+    age = [18,19, 20].sample
+    Teacher.create(name: name, age: age, classrooms_attributes: [name: "class #{i}"])
+    end
+  end
+
+  # desc "a"
+  # task :add_class => :environment do
+  #   10.times do |i|
+  #   name = "Class #{i + 1}"
+
+  #   Classroom.create(name: name)
+  #   end
+  #   # puts “Added 10 teachers with names and fields.”
+  # end
 end

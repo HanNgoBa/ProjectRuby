@@ -37,4 +37,8 @@ class Grade < ApplicationRecord
   }
   validates :score, presence: true
   validates :subject, presence: true
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "deleted_at", "id", "score", "semester", "student_id", "subject", "updated_at"]
+  end
 end

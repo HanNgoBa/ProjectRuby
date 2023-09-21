@@ -10,11 +10,13 @@ module Manager
                 @subject = params[:subject]
                 query = Student.includes(:grades)
                 query = query.where('students.name LIKE ?', "%#{@search}%")
+                # query = query.ransack(name_cont: @search)
                 if @subject.present?
                   query = query.where(grades: {subject: @subject} )
+                query = query.ransack(subject_eq: @subject)
                 end
-                query.order(:position).page params[:page]
-              else
+                query.result.order(:position).page params[:page]
+              else  
                 Student.includes(:grades).order(:position).page params[:page]
               end
         end

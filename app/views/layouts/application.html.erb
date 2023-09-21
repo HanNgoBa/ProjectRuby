@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bt119</title>
+    <title>Student page</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -26,17 +26,10 @@
             </li>
           </ul>
 
-          <%= form_with(url: manager_students_path, method: "GET", class: 'd-flex') do |form| %>
-            <%= form.text_field :search, class: 'form-control me-2', placeholder: 'Search' %>
-            <div class="input-group mb-3">
-              <%= form.select :subject, options_for_select([['match', 0], ['english', 1], ['history', 2], ["physical", 3]], nil), { prompt: 'Subject...' }, class: 'custom-select' %>
+         
 
-              <div class="input-group-append">
-                <label class="input-group-text" for="example_select">Subject</label>
-              </div>
-            </div>
-            <%= submit_tag 'Search', class: 'btn btn-outline-success', type: 'submit' %>
-          <% end  %>
+
+
         </div> 
         
         <% if user_signed_in? %>

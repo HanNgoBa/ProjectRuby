@@ -15,3 +15,4 @@ move.forEach(element => {
         })
     })
 });
+console.log("1321421")

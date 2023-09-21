@@ -3,8 +3,10 @@
 module Manager
   class StudentsController < ApplicationController
     def index
-      student_sv = StudentService.new
-      @students = student_sv.get_student(params)
+      # student_sv = StudentService.new
+      # @students = student_sv.get_student(params)
+      @q = Student.includes(:grades).ransack(params[:q])
+      @students = @q.result.order(:position).page params[:page]
     end
 
     def show

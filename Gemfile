@@ -11,6 +11,7 @@ gem 'fog-aws'
 gem 'jquery-rails'
 gem 'nested_form_fields'
 gem 'ranked-model'
+gem "ransack"
 
 gem 'bootstrap5-kaminari-views'
 gem 'kaminari'

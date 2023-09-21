@@ -37,4 +37,12 @@ class Student < ApplicationRecord
   validates :age, presence: true
 
   paginates_per 5
+  
+  def self.ransackable_attributes(auth_object = nil)
+    ["age", "avatar", "created_at", "deleted_at", "id", "name", "phone", "position", "song", "updated_at", "video"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["grades"]
+  end
 end
