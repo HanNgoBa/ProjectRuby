@@ -4,24 +4,28 @@
     <title>Classroom</title>
     <%= javascript_importmap_tags %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>  
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <%= link_to 'Home', manager_classrooms_path, class: 'navbar-brand' %>
+        <%= link_to 'Home', classrooms_path, class: 'navbar-brand' %>
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <%= link_to 'Add', new_manager_student_path, class: 'nav-link active', 'aria-current': 'page' %>
+              <%= link_to 'Add', new_classroom_path, class: 'nav-link active', 'aria-current': 'page' %>
             </li>
             <li>
-              <%= link_to 'Student deleted', manager_student_deleted_path, class: 'nav-link active', 'aria-current': 'page' %>
+              <%= link_to 'Teacher', teachers_path, class: 'nav-link active', 'aria-current': 'page' %>
             </li>
           </ul>
         </div> 
       </div>
     </nav>
     <%= yield %>
+    <%# hidden_field_tag :authenticity_token, form_authenticity_token %>
   </body>
 </html>

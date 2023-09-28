@@ -1,0 +1,87 @@
+
+<div class="modal" id="modal-class" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Classroom</h5>
+        <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+            <select name="" id="classroom_teacher_id" >
+                <option value="">Select teacher</option>
+            </select>
+        </div>
+        
+        <label for="name_teacher">Name class</label>
+        <input type="text" id="id_name_class" class="form-control" placeholder="Name class"  aria-describedby="basic-addon1">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="btn_save" 
+        <%# onclick="SaveClass()"   %>
+        class="btn btn-primary" data-bs-dismiss="modal" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag 'jquery'%>
+
+<script>
+    let select_teacher = document.getElementById('classroom_teacher_id')
+    let save_class = document.getElementById('btn_save')
+    let authenticity_token = $("meta[name='csrf-token']").attr("content"); 
+    select_teacher.addEventListener('click', function() {
+      $.ajax({
+      type: 'GET',
+      url: '/teachers',
+      dataType: 'json',
+      success: function(teachers) {
+        $('#classroom_teacher_id').empty(); // Xóa tất cả các tùy chọn hiện có
+        $('#classroom_teacher_id').append($('<option>', {
+          value: '', 
+          text: 'Select teacher' 
+        }));
+        teachers.forEach(function(teacher) {
+          $('#classroom_teacher_id').append($('<option>', {
+            value: teacher.id,
+            text: teacher.name
+          }));
+        });
+      }
+    });
+    });
+
+    save_class.addEventListener('click', function(e){
+        // e.preventDefault();
+        let teacher = select_teacher.value
+        let name = document.getElementById('id_name_class').value
+        // const csrfToken = $('meta[name="csrf-token"]').attr('content');
+        console.log(teacher, " ", name);
+        $.ajax({
+            type: 'POST',
+            url: '/classrooms',
+            dataType: 'json',
+            data: { 
+                classroom: {
+                    name: name,
+                    teacher_id: teacher,
+                },
+                authenticity_token: $("meta[name='csrf-token']").attr("content")
+            },
+            // headers: {
+            //     // 'X-CSRF-Token': $("meta[name='csrf-token']").attr("content")
+            //     authenticity_token: $("meta[name='csrf-token']").attr("content")
+
+            // },
+            // beforeSend: function(xhr) {
+            //   xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+            // },
+            success: function(response) {
+                alert('Thêm thành công!');
+            }
+        })
+    });
+</script>

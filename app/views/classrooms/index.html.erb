@@ -1,0 +1,53 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Classrooms</h1>
+
+<div id="classrooms">
+  <% @classrooms.each do |classroom| %>
+    <%= render classroom %>
+    <p>
+      <%= link_to "Show this classroom", classroom %>
+    </p>
+  <% end %>
+
+
+  <%# code table %>
+  <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody id="dataTable">
+      
+    </tbody>
+  </table>
+</div>
+
+<%# <button id="btn-new-class" onclick="openModal()" >New classroom</button> %>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-class">
+  New classroom
+</button>
+<%= paginate @classrooms%>
+
+<%= render "modal" %>
+
+<script>
+  DataTable(1)
+  let page = 1
+  function DataTable(page)
+  {
+    $.ajax({
+      url: '/classrooms',
+      type: 'GET',
+      dataType: 'json'
+      success: function (data){
+        console.log('data->> ', data)
+      }
+    })
+  }
+</script>
+
+

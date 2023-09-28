@@ -14,4 +14,7 @@
 #
 class Classroom < ApplicationRecord
     belongs_to :teacher
+
+    paginates_per 5
+
 end

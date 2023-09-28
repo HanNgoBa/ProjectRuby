@@ -4,4 +4,5 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import 'jquery'
 import 'custom/test'
+import 'bootstrap'
 // import 'custom/class'
